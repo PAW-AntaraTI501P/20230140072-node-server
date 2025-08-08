@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const port = 3001;
+const port = process.env.PORT;
 
 const todoRoutes = require("./routes/todo.js");
 const { todos } = require("./routes/todo.js");
@@ -17,6 +18,14 @@ app.get("/", (req, res) => {
 
 app.get("/contact", (req, res) => {
   res.render("contact");
+});
+
+app.get("/todos-data", (req, res) => {
+  res.json(todos);
+});
+
+app.get("/todos-list", (req, res) => {
+  res.render("todos-page", { todos: todos });
 });
 
 app.use((req, res) => {
